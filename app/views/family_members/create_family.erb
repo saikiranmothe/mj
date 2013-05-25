@@ -1,0 +1,20 @@
+<form action="/family_members/add_family/<%= @user.id %>" method="post">
+<% @all_users = User.all(:order => 'firstname') %>
+Name :
+<select name="mj_id">
+  	<option value="0">Select</option>
+    <% @all_users.each do |user| %>
+  		<option value="<%= user.mj_id %>"><%= user.firstname %> - <%= user.mj_id %></option>
+  	<% end %>
+</select>
+<% @all_relations = Relation.all %>
+Relation :
+<select name="relation">
+    <option value="0">Select</option>
+    <% @all_relations.each do |relation| %>
+  		<option value="<%= relation.id %>"><%= relation.id %> - <%= relation.relationship %></option>
+  	<% end %>
+</select>
+ <p class="button">
+<input type="submit" value="Add"/>
+ </p></form>

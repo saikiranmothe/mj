@@ -1,0 +1,30 @@
+<h2>Reference Tree</h2>
+<% unless @user.user.nil? %>
+	<ul>
+		<li><%= @user.user.firstname %>
+		    <ul>
+		    	<li><%= @user.firstname %></li>
+		    	<ul>
+		    		<% @user.users.each do |u| %>
+		    		<li><%= u.firstname %></li>
+		    		<% end %>
+		    	</ul>
+		    </ul>
+	    </li>
+	</ul>
+<% else %>
+	<ul>
+		<li><br/>
+		    <ul>
+		    	<li><%= @user.firstname %></li>
+		    	<ul>
+		    		<% @user.users.each do |u| %>
+		    		<li><%= u.firstname %></li>
+		    		<% end %>
+		    	</ul>
+		    </ul>
+	    </li>
+	</ul>
+<% end %>
+
+<a href="/users">Back</a>

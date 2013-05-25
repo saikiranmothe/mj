@@ -1,0 +1,30 @@
+<div id="content_links">
+  <a href="/users?begin=15">Users</a>
+  <a href="/family_members">Family members</a>
+  <a href="/relations">Relations</a>
+  <a href="/feedbacks">View Feedbacks</a>
+  <a href="/publish_event">Publish Event</a>
+</div>
+<h2>Relations</h2>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Relationship</th>
+    <th>Priority</th>
+    <th></th>
+  </tr>
+
+<% @relations.each do |relation| %>
+  <tr>
+    <td><%= relation.id %></td>
+    <td><%= relation.relationship %></td>
+    <td><%= relation.priority %></td>
+    <td><%= link_to 'Edit', edit_relation_path(relation) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Relation', new_relation_path %>

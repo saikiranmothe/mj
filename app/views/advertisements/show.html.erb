@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @advertisement.title %>
+</p>
+
+<p>
+  <b>Ad file name:</b>
+  <%= @advertisement.ad_file_name %>
+</p>
+
+<p>
+  <b>Ad content type:</b>
+  <%= @advertisement.ad_content_type %>
+</p>
+
+<p>
+  <b>Ad file size:</b>
+  <%= @advertisement.ad_file_size %>
+</p>
+
+
+<%= link_to 'Edit', edit_advertisement_path(@advertisement) %> |
+<%= link_to 'Back', advertisements_path %>

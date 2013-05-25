@@ -1,0 +1,39 @@
+<div id="content_links">
+	<a href="/users?begin=15">Users</a>
+	<a href="/family_members">Family members</a>
+	<a href="/relations">Relations</a>
+	<a href="/feedbacks">View Feedbacks</a>
+	<a href="/publish_event">Publish Event</a>
+</div>
+<h2>Users</h2> <a href="/users?begin=<%= @begin %>">Next Page</a>
+<table>
+	<tr>
+		<th>Id</th>
+		<th>Mj_Id</th>
+		<th>Firstname</th>
+		<th>Surname</th>
+		<th>Reference Id</th>
+		<th>Mobile</th>
+		<th>Email</th>
+		<th>Gender</th>
+		<th>Station</th>
+		<th>Occupation</th>
+		<th>Address</th>
+	</tr>
+<% @users.each do |u| %>
+	<tr>
+		<td><%= u.id %></td>
+		<td><%= u.mj_id %></td>
+		<td><%= u.firstname %></td>
+		<td><%= u.lastname %></td>
+		<td><%= u.user_id %></td>
+		<td><%= u.mobileno %></td>
+		<td><%= u.email %></td>
+		<td><%= u.gender %></td>
+		<td><%= u.station %></td>
+		<td><%= u.occupation %></td>
+		<td><%= u.address %></td>
+		<td><a href="/users/edit/<%= u.id %>">Edit</a></td>
+	</tr>
+<% end %>
+</table>

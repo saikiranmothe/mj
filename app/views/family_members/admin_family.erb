@@ -1,0 +1,36 @@
+<center><h1>Family Members</h1>
+
+  <%= @user.firstname %>'s family:<br/>
+  <form action="/family_members/update_payment/<%= @user.id %>" method="post">
+    <h3>Due members</h3>
+    <table>
+      <tr><th>Family member</th>
+      </tr>
+
+      <% @due_members.each do |d| %>
+        <% family_member_user = User.find(d.family_member_user_id) %>
+      <tr><td><%= family_member_user.firstname %><input type="checkbox" name="paid[<%= d.id %>]" value=""/>&nbsp;
+          <% unless d.deactivate == true %> <a href="/family_members/deactivate/<%= d.id %>">Deactivate</a> <% end %></td>
+        </tr>
+        <% logger.info "check box is.... #{params}" %>
+
+      <% end %>
+    </table>
+    <p class="button">
+      <input type="submit" name="submit" value="Paid"/>&nbsp;
+    </p>
+    <br/>
+    <h3>Paid members</h3>
+    <table>
+      <% @paid_members.each do |p| %>
+        <% family_member_user = User.find(p.family_member_user_id) %>
+        <tr><td><%= family_member_user.firstname %></td></tr>
+      <% end %>
+    </table>
+    <br/>
+
+  </form>
+
+</center>
+<br></br>
+<a href="/sessions/login_page/<%= current_user.id %>">Back</a>

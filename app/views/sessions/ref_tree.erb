@@ -1,0 +1,37 @@
+<a href="/sessions/ref_tree/<%= current_user.id %>">Reference Tree </a> |
+<a href="/family_members/family/<%= current_user.id %>">Family Tree</a> |
+<a href="/users/edit_profile/<%= current_user.id %>">Profile</a> |
+<a href="/family_members/edit_family/<%= current_user.id %>">Edit family members</a>
+<br/><br/>
+<center>
+  <h1>Reference Tree</h1>
+<% unless @user.user.nil? %>
+	<ul>
+		<li><%= @user.user.firstname %> <%= @user.user.lastname %>
+		    <ul>
+		    	<li><%= @user.firstname %> <%= @user.lastname %></li>
+		    	<ul>
+		    		<% @user.users.each do |u| %>
+		    		<li><%= u.firstname %> <%= u.lastname %></li>
+		    		<% end %>
+		    	</ul>
+		    </ul>
+	    </li>
+	</ul>
+<% else %>
+	<ul>
+		<li><br/>
+		    <ul>
+		    	<li><%= @user.firstname %> <%= @user.lastname %></li>
+		    	<ul>
+		    		<% @user.users.each do |u| %>
+		    		<li><%= u.firstname %> <%= u.lastname %></li>
+		    		<% end %>
+		    	</ul>
+		    </ul>
+	    </li>
+	</ul>
+<% end %>
+</center>
+<br></br>
+  <a href="/sessions/login_page/<%= @user.id %>">Back</a>

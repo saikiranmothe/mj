@@ -1,0 +1,233 @@
+<!--<style type="text/css">
+#topContact{display: none;}
+</style>-->
+<div id="content_links">
+<a href="/users/edit_profile/<%= current_user.id %>">Profile</a>
+<a href="/family_members/family/<%= current_user.id %>">Family Tree</a>
+<a href="/give_feedback">Give feedback</a>
+</div>
+<!-- | <a href="" onclick="window.print()">Print</a> -->
+<br/>
+<div id="treeDiv">
+<form action="/family_members/add_family/<%= current_user.id %>" method="post">
+<% @all_users = User.all(:order => 'firstname') %>
+<h2>Build your Family Tree</h2>
+MJ Id <input type="text" size=3; name="search_mjid" />&nbsp;&nbsp;
+Relation
+<select name="relation" class="select_style">
+    <option value="0">Select</option>
+    <% @all_relations.each do |relation| %>
+  		<option value="<%= relation.id %>"><%= relation.relationship %></option>
+  	<% end %>
+</select> &nbsp;&nbsp;
+<input type="submit" value="Add member" class="button_style" />
+<label class="notice"><%= notice %></label>
+</form><br/>
+<hr/>
+
+<% @family_members.each do |r| %>
+  would you like to join as <%= r.user.firstname  %> his/her <%= r.relationship %> ?
+  <a href="/family_members/join_pending/<%= r.id %>">Accept</a><br/> | <a href="/family_members/join_decline/<%= r.id %>">Decline</a>
+<% end %>
+<h2><%= @user.firstname %> <%= @user.lastname %>'s Family</h2>
+<center>
+  <div class="MainProfile">
+    <br/>
+  <table >
+    <tr>
+      <td rowspan="7">
+            <% if @user.photo_file_name.nil? %>
+              <img src="/assets/empty_profile.jpeg" width="150" alt="" />
+            <% else %>
+               <%= image_tag @user.photo.url(:medium) %>
+            <% end %>
+      </td>
+    </tr>
+    <tr><td>Name:</td><td><%= @user.firstname %> <%= @user.lastname %></td></tr>
+    <tr><td>Email:</td><td><%= @user.email %></td></tr>
+    <tr><td>Mobile:</td><td><%= @user.mobileno %></td></tr>
+    <tr><td>Gender:</td><td><%= @user.gender %></td></tr>
+    <tr><td>Occupation:</td><td><%= @user.occupation %></td></tr>
+    <tr><td>Station:</td><td><%= @user.station %></td></tr>
+    <tr><td></td><td>Address:</td><td><%= @user.address %></td></tr>
+  </table>     
+  </div>
+  <br/><br/>
+  <table border="0px" class="familyTable">
+    <tr><th>First Generation</th></tr>
+    <tr>
+      <% @user.relations.group("relationship").having("priority = ?", 1).order('id').each do |r| %>
+      <td>
+      <div class="relationGroup">
+        <h1><%= r.relationship %></h1>
+        <% r.family_members.where('user_id = ? and join_pending = ?',@user.id,false).each do |f| %>
+           <% family_member_user = User.find(f.family_member_user_id) %>
+           <% if family_member_user.photo_file_name.nil? %>
+            <div class="relationGroupMember">
+              <img src="/assets/empty_profile.jpeg" height="50" width="50" alt="" />
+              <a href="/family_members/family/<%= family_member_user.id %>"><%= family_member_user.firstname %> <%= family_member_user.lastname %></a>
+              <div class="memberMobile"><%= family_member_user.mobileno %></div>
+              <div class="memberStation"><%= family_member_user.station %></div>
+              <a href="/family_members/delete_member/<%= f.id %>"><img src="/assets/close.png"/></a>
+            </div>
+          <% else %>
+            <% if f.deactivate == false  %>
+              <div class="relationGroupMember">
+                <%= image_tag family_member_user.photo.url(:small) %>
+                <a href="/family_members/family/<%= family_member_user.id %>"><% end %> <%= family_member_user.firstname %> <%= family_member_user.lastname %></a>
+                <div class="memberMobile"><%= family_member_user.mobileno %></div>
+              <div class="memberStation"><%= family_member_user.station %></div>
+              <a href="/family_members/delete_member/<%= f.id %>"><img src="/assets/close.png"/></a>
+            </div>
+          <% end %>
+        <% end %>
+        <div style="clear:both;"></div>
+      </div>
+      </td>
+    <% end %>
+    </tr>
+  </table>
+  <br></br>
+  <table border="0px" class="familyTable">
+    <tr><th>Second Generation</th></tr>
+    <tr>
+      <% @user.relations.group("relationship").having("priority = ?", 2).order('id').each do |r| %>
+      <td>
+      <div class="relationGroup">
+        <h1><%= r.relationship %></h1>
+        <% r.family_members.where('user_id = ? and join_pending = ?',@user.id,false).each do |f| %>
+          <% family_member_user = User.find(f.family_member_user_id) %>
+          <% if family_member_user.photo_file_name.nil? %>
+            <!-- <td> -->
+            <div class="relationGroupMember">
+              <img src="/assets/empty_profile.jpeg" height="50" width="50" alt="" />
+              <a href="/family_members/family/<%= family_member_user.id %>"><%=  family_member_user.firstname %> <%= family_member_user.lastname %></a>
+              <div class="memberMobile"><%= family_member_user.mobileno %></div>
+              <div class="memberStation"><%= family_member_user.station %></div>
+              <% if current_user.id == @user.id %>
+                <a href="/family_members/delete_member/<%= f.id %>"><img src="/assets/close.png"/></a>
+              <% end %>
+            </div>
+            <!-- </td> -->
+          <% else %>
+            <% if f.deactivate == false  %>
+              <!-- <td> -->
+              <div class="relationGroupMember">
+                <%= image_tag family_member_user.photo.url(:small) %>
+                <a href="/family_members/family/<%= family_member_user.id %>"><% end %> <%=  family_member_user.firstname %> <%= family_member_user.lastname %></a>
+                <div class="memberMobile"><%= family_member_user.mobileno %></div>
+                <div class="memberStation"><%= family_member_user.station %></div>
+                <% if current_user.id == @user.id %>
+                  <a href="/family_members/delete_member/<%= f.id %>"><img src="/assets/close.png"/></a>
+                <% end %>
+            </div>
+            <!-- </td> -->
+          <% end %>
+        <% end %>
+        <div style="clear:both;"></div>
+      </div>
+      </td>
+    <% end %>
+       </tr>
+  </table>
+  <br></br>
+  <table border="0px" class="familyTable">
+    <tr><th>Third Generation</th></tr>
+    <tr>
+      <td>
+        <div class="relationGroup">
+        <h1>मैं</h1>
+        <div class="relationGroupMember">
+        <% if @user.photo_file_name.nil? %>
+          <img src="/assets/empty_profile.jpeg" height="50" width="50" alt="" />
+        <% else %>
+          <%= image_tag @user.photo.url(:small) %>
+        <% end %>
+        <a href="#"><%= @user.firstname %> <%= @user.lastname %></a>
+        <div class="memberMobile"><%= @user.mobileno %></div>
+        <div class="memberStation"><%= @user.station %></div>
+      </div>
+      <div style="clear:both;"></div>
+      </div>
+      </td>
+      <% @user.relations.group("relationship").having("priority = ?", 3).order('id').each do |r| %>
+      <td>
+      <div class="relationGroup">
+        <h1><%= r.relationship %></h1>
+        <% r.family_members.where('user_id = ? and join_pending = ?',@user.id,false).each do |f| %>
+          <% family_member_user = User.find(f.family_member_user_id) %>
+          <% if family_member_user.photo_file_name.nil? %>
+            <!-- <td> -->
+            <div class="relationGroupMember">
+              <img src="/assets/empty_profile.jpeg" height="50" width="50" alt="" />
+              <a href="/family_members/family/<%= family_member_user.id %>"><%= family_member_user.firstname %> <%= family_member_user.lastname %></a>
+              <div class="memberMobile"><%= family_member_user.mobileno %></div>
+              <div class="memberStation"><%= family_member_user.station %></div>
+              <a href="/family_members/delete_member/<%= f.id %>"><img src="/assets/close.png"/></a>
+            </div>
+            <!-- </td> -->
+          <% else %>
+            <% if f.deactivate == false  %>
+              <!-- <td> -->
+              <div class="relationGroupMember">
+                <%= image_tag family_member_user.photo.url(:small) %>
+                <a href="/family_members/family/<%= family_member_user.id %>"><% end %> <%= family_member_user.firstname %> <%= family_member_user.lastname %></a>
+                <div class="memberMobile"><%= family_member_user.mobileno %></div>
+                <div class="memberStation"><%= family_member_user.station %></div>
+                <a href="/family_members/delete_member/<%= f.id %>"><img src="/assets/close.png"/></a>
+            </div>
+            <!-- </td> -->
+          <% end %>
+        <% end %>
+        <div style="clear:both;"></div>
+      </div>
+      </td>
+    <% end %>
+      </tr>
+  </table>
+  <br></br>
+  <table border="0px" class="familyTable">
+    <tr><th>Fourth Generation</th></tr>
+    <tr>
+      <% @user.relations.group("relationship").having("priority = ?", 4).order('id').each do |r| %>
+      <td>
+      <div class="relationGroup">
+        <h1><%= r.relationship %></h1>
+        <% r.family_members.where('user_id = ? and join_pending = ?',@user.id,false).each do |f| %>
+          <% family_member_user = User.find(f.family_member_user_id) %>
+          <% if family_member_user.photo_file_name.nil? %>
+            <!-- <td> -->
+            <div class="relationGroupMember">
+              <img src="/assets/empty_profile.jpeg" height="50" width="50" alt="" />
+              <a href="/family_members/family/<%= family_member_user.id %>"><%= family_member_user.firstname %> <%= family_member_user.lastname %></a>
+              <div class="memberMobile"><%= family_member_user.mobileno %></div>
+              <div class="memberStation"><%= family_member_user.station %></div>
+              <a href="/family_members/delete_member/<%= f.id %>"><img src="/assets/close.png"/></a>
+            </div>
+            <!-- </td> -->
+          <% else %>
+            <% if f.deactivate == false  %>
+              <!-- <td> -->
+              <div class="relationGroupMember">
+                <%= image_tag family_member_user.photo.url(:small) %>
+                <a href="/family_members/family/<%= family_member_user.id %>"><% end %> <%= family_member_user.firstname %> <%= family_member_user.lastname %></a>
+                <div class="memberMobile"><%= family_member_user.mobileno %></div>
+                <div class="memberStation"><%= family_member_user.station %></div>
+                <a href="/family_members/delete_member/<%= f.id %>"><img src="/assets/close.png"/></a>
+            </div>
+            <!-- </td> -->
+          <% end %>
+        <% end %>
+        <div style="clear:both;"></div>
+      </div>
+      </td>
+    <% end %>
+    </tr>
+  </table>
+  <br></br>
+</center>
+
+</div>
+
+
+

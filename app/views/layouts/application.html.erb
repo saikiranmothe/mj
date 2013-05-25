@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maheshwari Jagruth</title>
+    <%= stylesheet_link_tag  "application" %>
+    <%= javascript_include_tag "application" %>
+    <link rel="icon" href="/assets/mj_favicon.png" />
+<script type="text/javascript">$(document).ready(function(){$('.slideshow').cycle({fx:'fade'});});</script>
+<script type="text/javascript">$(document).ready(function(){$('.footer_slideshow').cycle({fx:'fade'});});</script>
+  </head>
+  <body>
+    <script type="text/javascript" language="javascript">
+      function DisableBackButton() {
+        window.history.forward()
+      }
+      DisableBackButton();
+      window.onload = DisableBackButton;
+      window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+      window.onunload = function() { void (0) }
+    </script>
+<div id="header">
+ <div id="header_in">
+  <a href="/">
+   <img src="/assets/logo.png" style="height:80px;" id="logo"/>
+  </a>
+  <div id="topContact">
+    <a href="#" class="phone">+91 90300 27648/649</a>
+    <a href="mailto:maheshwari.jagruth@gmail.com" class="contact">maheshwari.jagruth@gmail.com</a>
+  </div>
+  <div id="menu">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/rajasthan">Hamaro Rajasthan</a></li>
+          <li><a href="../../maheshwari.png" target="_blank">Vanshothpatti</a></li>
+          <li><a href="../../history.pdf" target="_blank">History</a></li>
+          <li><a href="../../festivals.pdf" target="_blank">Festivals</a></li>
+          <li><a href="/advertisements">Partners</a>
+        </ul>
+      </div>
+      <div>
+            
+      </div>
+      <div id="topsection">
+        <% if current_user %>
+            <% unless current_user.photo_file_name.nil? %>
+              <%= image_tag current_user.photo.url(:small) %>
+            <% else %>
+              <img src="/assets/empty_profile.jpeg" height="30" width="30" />
+            <% end %>
+            <b style="color:#890000;">Logged in as 
+              <span style="color:#000;">
+              <%= current_user.firstname %> <%= current_user.lastname %>
+              </span>
+            </b>
+          <% else %>
+          <% end %>
+      </div>
+      <div id="topMenu">
+          <% if current_user %>
+            <a href="/logout">Logout</a>
+          <% else %>
+            <a href="/login" class="login">Login</a>
+          <% end %>
+       
+      </div>
+  </div>
+  </div>
+    <!--top strip start-->
+  <div id="strip_01">
+  <div class="strip_in01">
+    <a href="/demo_family" class="btn_style create_family_tree">Demo Family Tree</a>
+    <div class="clearDiv"></div>   
+  </div>
+  </div>
+  <div class="clearDiv"></div>   
+  <!--top strip end-->
+<!--header close-->
+        <div id="content">
+      <%= yield %>
+    </div>
+
+ <div class="clearDiv"></div> 
+<!--footer start-->
+  <div id="footer">
+    <div id="footer_in">
+      <div class="footer_section">
+      <a href="http://www.salasarindia.com" target="_blank">
+      <div class="footer_slideshow">
+        <img src="/assets/salasar.jpg" />
+        <img src="/assets/pg_s_01.jpg" />
+        <img src="/assets/pg_s_02.jpg" />
+        <img src="/assets/pg_s_03.jpg" />
+        <img src="/assets/pg_s_04.jpg" />
+        <img src="/assets/pg_s_05.jpg" />
+        <img src="/assets/pg_s_06.jpg" />
+        <img src="/assets/pg_s_07.jpg" />
+      </div>
+      </a>
+    </div>
+   </div>
+  </div>  
+  <!--footer end-->
+  <!--bottom strip start-->
+ <div id="bottom_strip">
+  <div class="inner_wrap">
+    <span>@ MJ. All rights reserved</span>
+    <div>
+      <a href="#">Terms and Conditions</a>
+      <a style="color:#8B1001;">|</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+ </div>
+   <!--bottom strip End-->
+  </body>
+</html>
+
+
+
+
+

@@ -1,0 +1,7 @@
+<div id="content_links">
+<a href="/users/edit_profile/<%= current_user.id %>">Profile</a>
+<a href="/family_members/family/<%= current_user.id %>">Family Tree</a>
+<a href="/give_feedback">Give feedback</a>
+</div>
+<h2>Give your feedback</h2>
+<%= render 'form' %>

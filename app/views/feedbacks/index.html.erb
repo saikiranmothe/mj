@@ -1,0 +1,33 @@
+<% if current_user.user_id == 0 %>
+<div id="content_links">
+  <a href="/users?begin=15">Users</a>
+  <a href="/family_members">Family members</a>
+  <a href="/relations">Relations</a>
+  <a href="/feedbacks">View Feedbacks</a>
+  <a href="/publish_event">Publish Event</a>
+</div>
+<% else %>
+<div id="content_links">
+  <a href="/users/edit_profile/<%= current_user.id %>">Profile</a>
+  <a href="/family_members/family/<%= current_user.id %>">Family Tree</a>
+  <a href="/feedbacks">Feedback</a>
+  <a href="/feedbacks/new">Give feedback</a>
+</div>
+<% end %>
+<h2>Feedback</h2>
+
+<table>
+  <tr>
+    <th>MJ ID</th>
+    <th>Details</th>
+  </tr>
+
+<% @feedbacks.each do |feedback| %>
+  <tr>
+    <td><%= feedback.user.mj_id %></td>
+    <td><%= feedback.details %></td>
+    <!-- <td><%#= link_to 'Edit', edit_feedback_path(feedback) %></td> -->
+    <!-- <td><%#= link_to 'Destroy', feedback, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+  </tr>
+<% end %>
+</table>

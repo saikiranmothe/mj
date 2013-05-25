@@ -1,0 +1,64 @@
+<h2>Search</h2>
+<form>
+  Search by: &nbsp;
+  <select name="search" class="select_style">
+    <option  value="firstname">Name</option>
+    <option  value="lastname">Surname</option>
+    <option  value="occupation">Occupation</option>
+    <option  value="mobileno">Mobileno</option>
+    <option  value="station">Station</option>
+  </select> <br/><br/>
+  whom do u want to search?
+  <input type="text" name="searchname" value="" id="searchbox" placeholder="Search for member"/><input type="submit" id="search_button" />
+  <!-- <p class="button">
+    <input name="commit" type="submit" value="Search" class="button_style" />
+  </p> -->
+
+</form>
+<table>
+  <%  if params[:search] == "firstname" %>
+    <%  @x = User.find_all_by_firstname(params[:searchname]) %>
+    <% @x.each do |f| %>
+      <tr>
+        <td><%= f.firstname %></td> <td> -- <%= f.mj_id%></td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  <% if params[:search] == "lastname" %>
+    <%  @y = User.find_all_by_lastname(params[:searchname]) %>
+    <% @y.each do |s| %>
+      <tr>
+        <td> <%= s.firstname %></td> <td> -- <%= s.mj_id%> </td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  <% if params[:search] == "occupation" %>
+    <% @z = User.find_all_by_occupation(params[:searchname]) %>
+    <% @z.each do |o| %>
+      <tr>
+        <td><%= o.firstname %></td> <td> -- <%= o.mj_id%> </td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  <% if params[:search] == "station" %>
+    <% @p = User.find_all_by_station(params[:searchname]) %>
+    <% @p.each do |s| %>
+      <tr>
+        <td><%= s.firstname %></td><td> -- <%= s.mj_id%> </td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  <% if params[:search] == "mobileno" %>
+    <% @q = User.find_all_by_mobileno(params[:searchname]) %>
+    <% @q.each do |m| %>
+      <tr>
+        <td><%= m.firstname %> -- <%= m.mj_id%> </td>
+      </tr><br/>
+    <% end %>
+  <% end %>
+</table>
+<br/><br/><br/><br/><br/><br/><br/><br/>

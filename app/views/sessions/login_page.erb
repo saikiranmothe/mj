@@ -1,0 +1,12 @@
+<% if current_user.user_id == 0 %>
+  <a href="/users?begin=15">Users</a> |
+  <a href="/family_members">Family members</a> |
+  <a href="/relations">Relations</a>
+  <br/><br/>
+  Welcome Admin
+<% else %>
+  <a href="/family_members/family/<%= current_user.id %>">Family Tree</a> |
+  <a href="/users/edit_profile/<%= current_user.id %>">Profile</a>
+  <br/><br/>
+  Welcome
+<% end %>

@@ -1,0 +1,45 @@
+<body onload="window.print()">
+<% @family_members.each do |r| %>
+  would you like to join as <%= r.user.firstname  %> his/her <%= r.relationship %> ?
+  <a href="/family_members/join_pending/<%= r.id %>">Accept</a><br/> | <a href="/family_members/join_decline/<%= r.id %>">Decline</a>
+<% end %>
+<a href="/sessions/login_page/<%= current_user.id%>">Home Page</a> |
+<a href="/family_members/family/<%= current_user.id%>">Show My Family</a>
+<center><h1>Family Members</h1>
+
+  <%= @user.firstname %>'s family:<br/>
+
+  <table>
+    <tr>
+      <th></th>
+      <th>Family member</th>
+      <th>Relationship</th>
+    </tr>
+    <% @user.relations.group("priority").each do |r| %>
+      <tr><% r.family_members.where('user_id = ? and join_pending = ?',@user.id,false).each do |f| %>
+          <% family_member_user = User.find(f.family_member_user_id) %>
+          <% if family_member_user.photo_file_name.nil? %>
+            <td>
+              <img src="/assets/empty_profile.jpeg" height="30" width="30" alt="" />
+            </td>
+            <td><a href="/family_members/family/<%= family_member_user.id %>"><%=  family_member_user.firstname %></a>
+            </td>
+            <td><%= f.relation.relationship %></td>
+          <% else %>
+            <% if f.deactivate == false  %>
+              <td>
+                <%= image_tag family_member_user.photo.url(:small) %>
+              </td>
+              <td>
+                <a href="/family_members/family/<%= family_member_user.id %>"><% end %> <%=  family_member_user.firstname %></a>
+            </td>
+            <td><%=  f.relation.relationship %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <br></br>
+
+</center>
+</body>
