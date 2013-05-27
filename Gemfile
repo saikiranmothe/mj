@@ -10,5 +10,15 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'rmagick'
 gem 'paperclip'
 
-# install wkhtmltopdf for wicked_pdf to work
+## install wkhtmltopdf for wicked_pdf to work
+gem 'sass-rails'
+
 gem 'wicked_pdf'
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
+
+gem 'devise'
+
+gem 'activeadmin'
+gem 'coffee-script'

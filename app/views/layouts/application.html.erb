@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <title>Maheshwari Jagruth</title>
     <%= stylesheet_link_tag  "application" %>
     <%= javascript_include_tag "application" %>
     <link rel="icon" href="/assets/mj_favicon.png" />
 <script type="text/javascript">$(document).ready(function(){$('.slideshow').cycle({fx:'fade'});});</script>
+
+<script type="text/javascript">
+$('#element').popover('show')
+</script>
 <script type="text/javascript">$(document).ready(function(){$('.footer_slideshow').cycle({fx:'fade'});});</script>
   </head>
   <body>
@@ -36,7 +41,9 @@
           <li><a href="../../maheshwari.png" target="_blank">Vanshothpatti</a></li>
           <li><a href="../../history.pdf" target="_blank">History</a></li>
           <li><a href="../../festivals.pdf" target="_blank">Festivals</a></li>
-          <li><a href="/advertisements">Partners</a>
+          <li><a href="/advertisements">Partners</a></li>
+          <li><a href="/aboutus">About Us</a></li> &nbsp
+  
         </ul>
       </div>
       <div>
@@ -69,8 +76,9 @@
   </div>
     <!--top strip start-->
   <div id="strip_01">
-  <div class="strip_in01">
+  <div class="strip_in01" id="element">
     <a href="/demo_family" class="btn_style create_family_tree">Demo Family Tree</a>
+
     <div class="clearDiv"></div>   
   </div>
   </div>
@@ -83,7 +91,7 @@
 
  <div class="clearDiv"></div> 
 <!--footer start-->
-  <div id="footer">
+  <div id="footer" style="position:absoulte;bottom:0">
     <div id="footer_in">
       <div class="footer_section">
       <a href="http://www.salasarindia.com" target="_blank">
@@ -103,7 +111,7 @@
   </div>  
   <!--footer end-->
   <!--bottom strip start-->
- <div id="bottom_strip">
+ <div id="bottom_strip" >
   <div class="inner_wrap">
     <span>@ MJ. All rights reserved</span>
     <div>
