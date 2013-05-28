@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :login_required, :only => [:home, :sign_up, :create, :registration_ack, :create_password, :store_password, :reset_password, :update_password, :demo_family, :search]
-  before_filter :already_logged_in
+ # before_filter :already_logged_in
   skip_before_filter :already_logged_in, :only => [:search, :index, :edit_profile]
   
   def index

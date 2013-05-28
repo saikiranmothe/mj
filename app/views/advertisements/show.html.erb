@@ -1,25 +1,29 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Advertisement -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Title:</b>
-  <%= @advertisement.title %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @advertisement.title %></dd>
+</dl>
+<br>
+  <div class="img-circle">
+    <%= image_tag @advertisement.ad %>
 
-<p>
-  <b>Ad file name:</b>
-  <%= @advertisement.ad_file_name %>
-</p>
+  </div>
+<hr>
 
-<p>
-  <b>Ad content type:</b>
-  <%= @advertisement.ad_content_type %>
-</p>
+<%= image_tag @advertisement.ad(:small) %>  
 
-<p>
-  <b>Ad file size:</b>
-  <%= @advertisement.ad_file_size %>
-</p>
-
-
-<%= link_to 'Edit', edit_advertisement_path(@advertisement) %> |
-<%= link_to 'Back', advertisements_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              advertisements_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_advertisement_path(@advertisement), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              advertisement_path(@advertisement),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
