@@ -1,4 +1,5 @@
 Mj::Application.routes.draw do
+root :to => "advertisements#index"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -37,7 +38,6 @@ Mj::Application.routes.draw do
   get "give_feedback" => "feedbacks#new", :as => "give_feedback"
   #root :to => "users#home"
  
-root :to => "advertisements#index"
  
   resources :users
   resources :sessions
