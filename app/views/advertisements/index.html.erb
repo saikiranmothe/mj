@@ -5,11 +5,19 @@
 
      
 
+    <div class="row">
     <% @advertisements.each do |advertisement| %>
+  <div class="span3" style="">
+     <div class="img-polaroid" data-src="holder.js/300x200">
 
-     <div class="img-circle">
-        <%= image_tag advertisement.ad(:small) %>
-    </div>   
-    <hr>
-    <% end %>
+    <h5><%=link_to advertisement.title %></h5>
+<hr>
 
+    <div class="img">    <%= image_tag advertisement.ad %>
+    </div>  
+    <h1><%= advertisement.title %></h1>
+    </div> 
+  </div>
+
+   <% end %>
+</div>
