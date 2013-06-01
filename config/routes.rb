@@ -1,4 +1,6 @@
 Mj::Application.routes.draw do
+  devise_for :advertisers
+
 root :to => "advertisements#index"
 
   devise_for :admin_users, ActiveAdmin::Devise.config

@@ -38,11 +38,11 @@ position:absolute;
 #topContact a{
 		display:block; float:left; margin-right:20px; 
 }
-.phone{background:url('../img/phone_ico.png') no-repeat 42px 5px;
+.phone{background:url('../assets/phone_ico.png') no-repeat 42px 5px;
 height:33px; line-height:38px; margin-right:20px; padding-left:77px; text-decoration:none;
 }
 .contact{
-background:url('../img/mail_ico.png') no-repeat 42px 10px;
+background:url('../assets/mail_ico.png') no-repeat 42px 10px;
 height:33px; line-height:38px; margin-right:20px; padding-left:77px; text-decoration:none;
 }
 

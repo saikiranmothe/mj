@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525184547) do
+ActiveRecord::Schema.define(:version => 20130601105316) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -54,6 +54,33 @@ ActiveRecord::Schema.define(:version => 20130525184547) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  create_table "advertisers", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "Surname"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "h_no"
+    t.string   "street"
+    t.string   "area"
+    t.string   "pin_no"
+    t.string   "contact_no"
+    t.string   "tan_no"
+  end
+
+  add_index "advertisers", ["email"], :name => "index_advertisers_on_email", :unique => true
+  add_index "advertisers", ["reset_password_token"], :name => "index_advertisers_on_reset_password_token", :unique => true
 
   create_table "events", :force => true do |t|
     t.string   "title"

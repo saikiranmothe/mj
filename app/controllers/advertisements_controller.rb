@@ -1,9 +1,8 @@
 class AdvertisementsController < ApplicationController
   # GET /advertisements
   # GET /advertisements.json
-
-  skip_before_filter :login_required
-
+  before_filter :authenticate_advertiser!  
+  
   def index
     @advertisements = Advertisement.all
 
